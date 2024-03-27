@@ -32,7 +32,7 @@ if (isset($_POST['task_info'])) {
           </script>";
     header("refresh:3; url=login.php");
   } else {
-    $_SESSION['error'] = "ມີບາງຢ່າງເກິດການຜິດພາດ ບໍ່ສາມາດເພີ່ມຂໍ້ມູນສຳເລັດ!";
+    $_SESSION['error'] = "ມີບາງຢ່າງເກິດການຜິດພາດ ບໍ່ສາມາດເພີ່ມຂໍ້ມູນສຳເລັດ!!";
     header("location: show-info.php");
   }
 }
