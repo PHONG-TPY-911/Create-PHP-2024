@@ -63,6 +63,7 @@
                     <li><a href="candidate.html"><span>ບໍລີສັດ</span></a></li>
                     <li><a href="about-us.html"><span>ກ່ຽວກັບ</span></a></li>
                     <li><a href="contact.html"><span>ຕິດຕໍ່</span></a></li>
+                    <li><a href="contact.html"><span>ຂໍ້ມຸນອຶ້ນໆ</span></a></li>
                     
               <div class="header-align-end">
                 <div class="header-action-area">
