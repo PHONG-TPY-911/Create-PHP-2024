@@ -40,7 +40,7 @@ if (isset($_POST['login'])) {
                                 });
                             });
                             </script>";
-                            header("refresh:2; url=../../admin/pages/dashboard.php");
+                            // header("refresh:2; url=../../admin/pages/dashboard.php");
                         } 
                         // elseif ($row['Status'] == 'company') {
                         //     $_SESSION['company_login'] = $row['ID'];
@@ -73,7 +73,7 @@ if (isset($_POST['login'])) {
                         // }
                     } else {
                         $_SESSION['error'] = 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ';
-                        header("location: login.php");
+                        // header("location: login.php");
                     }
                 } else {
                     $_SESSION['error'] = 'ອີເມວບໍ່ຖືກຕ້ອງ';

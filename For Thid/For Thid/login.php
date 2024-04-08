@@ -134,7 +134,7 @@ session_start();
                   <div class="form-title">
                     <h4 class="title">ເຂົ້າລະບົບຜູ້ໃຊ້ງານທົ່ວໄປ</h4>
                   </div>
-                  <form action="register_login.php" method="post">
+                  <form action="register_login_db.php" method="POST">
                     <!-- Check error -->
                     <?php if (isset($_SESSION['error'])) { ?>
                       <div class="alert alert-danger" role="alert">

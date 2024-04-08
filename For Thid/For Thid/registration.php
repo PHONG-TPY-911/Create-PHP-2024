@@ -143,7 +143,7 @@ session_start();
                   </ul>
                   <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="candidate" role="tabpanel" aria-labelledby="candidate-tab">
-                      <form action="Register_customer.php" method="post">
+                      <form action="Register_customer_insertInTo.php" method="post">
                         <!-- Check error -->
                         <?php if (isset($_SESSION['error'])) { ?>
                           <div class="alert alert-danger" role="alert">
@@ -236,7 +236,7 @@ session_start();
                     </div>
                   </div>
                   <div class="login-register-form-info">
-                    <p>ມີບັນຊີແລ້ວ? <a href="login.html">ເຂົ້າລະບົບ</a></p>
+                    <p>ມີບັນຊີແລ້ວ? <a href="login.php">ເຂົ້າລະບົບ</a></p>
                   </div>
                 </div>
               </div>
