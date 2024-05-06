@@ -4,7 +4,7 @@ require_once '../connect-database/config.php';
 
 if (!isset($_SESSION['company_login'])) {
   $_SESSION['error'] = "ກາລຸນາເຂົ້າສູ່ລະບົບ";
-  header("location: login.php");
+  header("location: ../customer/login.php");
 }
 ?>
 
@@ -127,7 +127,7 @@ if (!isset($_SESSION['company_login'])) {
         $company_id = $_SESSION['company_login'];
       // echo 'User ID' . $company_id;
       $stmt = $conn->query("SELECT * FROM company WHERE ID = $company_id ");
-      $company = $company_data = $stmt->fetch(PDO::FETCH_ASSOC);
+      $company = $stmt->fetch(PDO::FETCH_ASSOC);
       ?>
       <!--== Start Team Details Area Wrapper ==-->
       <section class="team-details-area">
@@ -137,20 +137,47 @@ if (!isset($_SESSION['company_login'])) {
               <div class="team-details-wrap">
                 <div class="team-details-info">
                   <div class="thumb">
-                    <img src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>" width="130" height="130" alt="Image-HasTech">
+                    <img src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>" width="130" height="130" alt="ຮູບໂປຣຟາຍ">
                   </div>
                   <div class="content">
-                    <h4 class="title">KAN CAFE</h4>
-                    <h5 class="sub-title">ຮ້ານອາຫານ ແລະ ເຄື່ອງດື່ມ</h5>
+                    <h4 class="title"><?= $company['Name_company'] ? $company['Name_company'] : "ຍັງບໍ່ມີຂໍ້ມູນ!" ?></h4>
+                    <h5 class="sub-title"><?= $company['Business_model'] ?></h5>
                     <ul class="info-list">
                       <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
                     </ul> <br>
-                    <button onclick="window.location.href = 'company-details-add.php';" type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button>
+                    <!-- <a href="company-details-add.php?id=<?= $company['ID'] ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a> -->
+                    <a href="company-details-add.php?id=<?= isset($_SESSION['company_login']) ? $_SESSION['company_login'] : 'ຍັງບໍໄດ້ login ເທື່ອ!' ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a>
+
                   </div>
                 </div>
                 <div class="team-details-btn">
-                  <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br>
-                  <button type="button" class="btn-theme">ປ່ຽນຮູບ</button>
+                  <!-- Button trigger modal -->
+                  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
+                  <button type="button" class="btn-theme" data-bs-toggle="modal" data-bs-target="#exampleModal">ເລືອກຮູບພາບ</button>
+
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="exampleModalLabel">ໜ້າເລືອກຮູບໂປຮຟາຍ</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <input type="file" name="image_company" id="image-company">
+                          <img width="100%" id="perviewImage" class="mt-2 rounded" alt="">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ຍົກເລີກ</button>
+                          <button type="button" class="btn btn-primary">ບັນທຶກ</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br> -->
+                  <!-- <button type="button" class="btn-theme">ປ່ຽນຮູບ</button> -->
                 </div>
               </div>
             </div>
@@ -306,6 +333,18 @@ if (!isset($_SESSION['company_login'])) {
 
   <!--=== jQuery Custom Js ===-->
   <script src="assets/js/custom.js"></script>
+
+
+  <script>
+    let Image_company = document.getElementById('image-company');
+    let preview = document.getElementById('perviewImage');
+    Image_company.onchange = e => {
+      const [file] = Image_company.files;
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    }
+  </script>
 
 </body>
 

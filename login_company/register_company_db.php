@@ -45,18 +45,9 @@ if (isset($_POST['login_company'])) {
     header("location: ../registration.php");
   } else {
 
-    // $checkUserName = $conn->prepare("SELECT COUNT(*) FROM company WHERE Name_company = ?");
-    // $checkUserName->execute([$Name_company]);
-    // $userNameExists = $checkUserName->fetchColumn();
-
     $checkEmail = $conn->prepare("SELECT COUNT(*) FROM company WHERE Email = ?");
     $checkEmail->execute([$Email]);
     $emailExists = $checkEmail->fetchColumn();
-
-    // if ($userNameExists) {
-    //   $_SESSION['error'] = "ຊີ່";
-    //   header("refresh:3; url=login.php");
-    // } else 
     if ($emailExists) {
       $_SESSION['error'] = "ອີເມວນີ້ມີຢູ່ໃນລະບົບແລ້ວ!";
       header("refresh:3; url=login.php");

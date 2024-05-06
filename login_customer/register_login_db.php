@@ -46,7 +46,7 @@ if (isset($_POST['login_customer'])) {
         if ($Email == $user['Email']) {
           if (password_verify($Password, $user['Password'])) {
             if ($user['Status'] == 'user') {
-              $_SESSION['user_login'] == $user['ID'];
+              $_SESSION['user_login'] = $user['ID'];
               echo "<script>
                       $(document).ready(function() {
                           Swal.fire({
@@ -77,8 +77,8 @@ if (isset($_POST['login_customer'])) {
               echo "<script>
                       $(document).ready(function() {
                           Swal.fire({
-                              title: 'ບັນຊີ ຜູ້ດູສະໝັກວຽກ',
-                              text: 'ຍີນດີຕ້ອນຮັບ ເຂົ້າສູ່ຜູ້ສະໝັກວຽກ',
+                              title: 'ບັນຊີ ບໍລິສັດ',
+                              text: 'ຍີນດີຕ້ອນຮັບ ເຂົ້າສູ່ບໍລິສັດ',
                               icon: 'success',
                               timer: 5000,
                               showConfirmButton: false

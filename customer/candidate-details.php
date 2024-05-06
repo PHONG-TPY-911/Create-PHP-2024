@@ -176,7 +176,7 @@ if (!isset($_SESSION['user_login'])) {
 
             if (isset($_SESSION['user_login']))
               $user_id = $_SESSION['user_login'];
-            // echo 'User ID' . $user_id;
+            echo 'User ID' . $user_id;
             $stmt = $conn->query("SELECT * FROM customer WHERE ID = $user_id ");
             $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -192,7 +192,7 @@ if (!isset($_SESSION['user_login'])) {
                 <div class="team-details-wrap">
                   <div class="team-details-info">
                     <div class="thumb">
-                      <img src="../folder-image/image-profile/<?= $user_data['Profile_picture'] ?>" width="130" height="130" alt="Image-HasTech">
+                      <img src="../folder-image/image-profile/<?= $user_data['Profile_picture'] ?>" width="130" height="130" alt="ຮູບໂປຣຟາຍ">
                     </div>
                     <div class="content">
                       <h4 class="title"><?= $user_data['Name'] ?></h4>
