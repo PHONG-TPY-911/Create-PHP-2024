@@ -135,7 +135,20 @@ if (!isset($_SESSION['user_login'])) {
 
                     <div class="header-align-end">
                       <div class="header-action-area">
-                        <a href="#"><span></span> Username</a>
+                        <!--==  <a href="login.html"><span></span> Username</a> ==-->
+                        <div class="dropdown">
+                          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            USER Name
+                          </button>
+                          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" href="#">ກ່ຽວກັບຂ້ອຍ</a></li>
+                            <li>
+                              <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="login.html">ອອກລະບົບ</a></li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                 </div>
