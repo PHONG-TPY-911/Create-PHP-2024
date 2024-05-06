@@ -34,12 +34,14 @@
                   <img src="assets/img/user/Profile-kancafe.jpg" width="130" height="130" alt="Image-HasTech">
                 </div>
                 <div class="content">
-                  <h4 class="title">KAN CAFE</h4>
-                  <h5 class="sub-title">ຮ້ານອາຫານ ແລະ ເຄື່ອງດື່ມ</h5>
-                  <ul class="info-list">
-                    <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
-                  </ul>
-                </div>
+                    <h4 class="title">KAN CAFE</h4>
+                    <h5 class="sub-title">ຮ້ານອາຫານ ແລະ ເຄື່ອງດື່ມ</h5>
+                    <ul class="info-list">
+                      <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
+                    </ul> <br>
+                    <button onclick="window.location.href = 'company-details-add.html';" type="button"
+                      class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button>
+                  </div>
               </div>
               <div class="team-details-btn">
                 <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br>
