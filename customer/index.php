@@ -158,17 +158,6 @@
           </div>
         </div>
       </div>
-      <!--<div class="container pt--0 pb--0">
-        <div class="row">
-          <div class="col-12">
-            <div class="play-video-btn">
-              <a href="https://www.youtube.com/mcvqOUtcAJg" class="video-popup">
-                <img src="assets/img/icons/play.png" alt="Image-HasTech">
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <div class="home-slider-shape">
         <img class="shape1" data-aos="fade-down" data-aos-duration="1500" src="assets/img/slider/vector1.png" width="270" height="234" alt="Image-HasTech">
         <img class="shape2" data-aos="fade-left" data-aos-duration="2000" src="assets/img/slider/vector2.png" width="201" height="346" alt="Image-HasTech">
@@ -462,7 +451,7 @@
     <!--== End Work Process Area Wrapper ==-->
 
     <!--== Start Divider Area Wrapper ==-->
-    <section class="sec-overlay sec-overlay-theme bg-img" data-bg-img="assets/img/photos/bg1.jpg">
+    <section class="sec-overlay sec-overlay-theme bg-img" data-bg-img="assets/img/photos/">
       <div class="container pt--0 pb--0">
         <div class="row justify-content-center divider-style1">
           <div class="col-lg-10 col-xl-7">
@@ -710,18 +699,18 @@
                 <div class="swiper-slide">
                   <!--== Start Testimonial Item ==-->
                   <div class="testimonial-item">
-                    <div class="testi-inner-content">
+                  <div class="testi-inner-content">
                       <div class="testi-author">
                         <div class="testi-thumb">
-                          <img src="assets/img/testimonial/4.jpg" width="75" height="75" alt="Image-HasTech">
+                          <img src="assets/img/user/Profile.jpeg" width="75" height="75" alt="Image-HasTech">
                         </div>
                         <div class="testi-info">
-                          <h4 class="name">Joshua George</h4>
-                          <span class="designation">Hiring Manager</span>
+                          <h4 class="name">Kanya XAYYAHAN</h4>
+                          <span class="designation">Graphic Designer</span>
                         </div>
                       </div>
                       <div class="testi-content">
-                        <p class="desc">It is a long established fact that reader will distracted the readable content page looking at its layout point using that has more-or-less normal distribution of letters opposed using content making.</p>
+                        <p class="desc">ປະສົບການເຮັດວຽກງານອອກແບບຫຼາຍກວ່າຫຼາຍ 10 ປີ. ນຳໃຂ້ Program Illustrator, Photosho,</p>
                         <div class="rating-box">
                           <i class="icofont-star"></i>
                           <i class="icofont-star"></i>
@@ -738,18 +727,18 @@
                 <div class="swiper-slide">
                   <!--== Start Testimonial Item ==-->
                   <div class="testimonial-item">
-                    <div class="testi-inner-content">
+                  <div class="testi-inner-content">
                       <div class="testi-author">
                         <div class="testi-thumb">
-                          <img src="assets/img/testimonial/5.jpg" width="75" height="75" alt="Image-HasTech">
+                          <img src="assets/img/user/Profile.jpeg" width="75" height="75" alt="Image-HasTech">
                         </div>
                         <div class="testi-info">
-                          <h4 class="name">Rosie Patton</h4>
-                          <span class="designation">Hiring Manager</span>
+                          <h4 class="name">Kanya XAYYAHAN</h4>
+                          <span class="designation">Graphic Designer</span>
                         </div>
                       </div>
                       <div class="testi-content">
-                        <p class="desc">It is a long established fact that reader will distracted the readable content page looking at its layout point using that has more-or-less normal distribution of letters opposed using content making.</p>
+                        <p class="desc">ປະສົບການເຮັດວຽກງານອອກແບບຫຼາຍກວ່າຫຼາຍ 10 ປີ. ນຳໃຂ້ Program Illustrator, Photosho,</p>
                         <div class="rating-box">
                           <i class="icofont-star"></i>
                           <i class="icofont-star"></i>
