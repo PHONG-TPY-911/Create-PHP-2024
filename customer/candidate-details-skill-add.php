@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once '../connect-database/config.php';
+if (!isset($_SESSION['user_login'])) {
+  $_SESSION['error'] = 'ກາລຸນາເຂົ້າສູ່ລະບົບ!';
+  header("location: login.php");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -17,8 +26,7 @@
   <!--== Google Fonts ==-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap"
-    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
 
@@ -41,7 +49,14 @@
 
   <!--wrapper start-->
   <div class="wrapper">
+    <?php
 
+    if (isset($_SESSION['user_login']))
+      $user_id = $_SESSION['user_login'];
+    echo 'User ID' . $user_id;
+    $stmt = $conn->query("SELECT * FROM customer WHERE ID = $user_id ");
+    $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
+    ?>
     <!--== Start Header Wrapper ==-->
     <header class="header-area transparent">
       <div class="container">
@@ -69,8 +84,7 @@
                       <div class="header-action-area">
                         <!--==  <a href="login.html"><span></span> Username</a> ==-->
                         <div class="dropdown">
-                          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton"
-                            data-bs-toggle="dropdown" aria-expanded="false">
+                          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                             USER Name
                           </button>
                           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -102,7 +116,9 @@
                   <ul class="breadcrumb justify-content-center">
                     <li><a href="index.html">ໜ້າຫຼັກ</a></li>
                     <li class="breadcrumb-sep">//</li>
-                    <li>ຂໍ້ມູນສ່ວນຕົວ</li>
+                    <a href="candidate-details-main.php?id=<?= $user_id ?>">
+                      <li>ຂໍ້ມູນສ່ວນຕົວ</li>
+                    </a>
                   </ul>
                 </nav>
               </div>
@@ -120,20 +136,22 @@
               <div class="team-details-wrap">
                 <div class="team-details-info">
                   <div class="thumb">
-                    <img src="assets/img/user/Profile.jpeg" width="130" height="130" alt="Image-HasTech">
+                    <img src="../folder-image/image-profile/<?= $user_data['Profile_picture'] ?>" width="130" height="130" alt="ຮູບໂປຣຟາຍ">
                   </div>
                   <div class="content">
-                    <h4 class="title">Kanya XAYYAHAN</h4>
-                    <h5 class="sub-title">Web Developer</h5>
+                    <h4 class="title"><?= $user_data['Name'] ?></h4>
+                    <h5 class="sub-title"><?= $user_data['Study'] ?></h5>
                     <ul class="info-list">
-                      <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
+                      <a style="color:#00CC00" href="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B9%8C/@17.9605855,102.5233634,12z/data=!3m1!4b1!4m6!3m5!1s0x3124688606ed7b21:0x1f93b18618c1eedf!8m2!3d17.9757058!4d102.6331035!16zL20vMGZ0cDg?entry=ttu" target="_blank">
+                        <li><i class="icofont-location-pin" style="color:#00CC00"></i> <?= $user_data['Province'] ?>
+                      </a> , <?= $user_data['Nationality'] ?></li>
                     </ul>
                   </div>
                 </div>
-                <div class="team-details-btn">
+                <!-- <div class="team-details-btn">
                   <input type="file" id="img" name="declaration" accept="image/*"> <br> <br>
                   <button type="button" class="btn-theme">ປ່ຽນຮູບ</button>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -145,11 +163,12 @@
                     <h3 class="title">ເພີ່ມຂໍ້ມູນກ່ຽວກັບຕົວເອງ</h3>
                   </div>
                   <div class="widget-contact-form">
-                    <form id="contact-form" action="" method="POST">
+                    <form id="contact-form" action="insert_skill.php" method="POST">
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
-                            <textarea class="form-control" name="job_content" placeholder="ກ່ຽວກັບ"></textarea>
+                            <input type="hidden" name="ID" value="<?= $user_id ?>">
+                            <textarea class="form-control" name="Job_content" placeholder="ກ່ຽວກັບ"></textarea>
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -159,25 +178,26 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                            <input type="checkbox" name="Skill[]" value="Word">
                             <label for="vehicle1"> Word</label><br>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                            <input type="checkbox" name="Skill[]" value="Exel">
                             <label for="vehicle2"> Exel</label><br>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                            <input type="checkbox" name="Skill[]" value="PowerPoint">
                             <label for="vehicle2"> PowerPoint</label><br>
                           </div>
                         </div>
                         <div class="col-md-">
                           <div class="form-group">
-                            <input class="form-control" type="text" name="address" placeholder="ອື່ນໆ:">
+                            <label for="vehicle2"> ທັກສະອື່ນໆ</label>
+                            <input class="form-control" type="text" name="Skill_Other" placeholder="ທັກສະອື່ນໆ:">
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -187,31 +207,39 @@
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
+                            <input type="checkbox" name="Language[]" value="Thai">
                             <label for="vehicle1"> ໄທ</label><br>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                            <input type="checkbox" name="Language[]" value="English">
                             <label for="vehicle2"> ອັງກີດ</label><br>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
-                            <input type="checkbox" id="vehicle2" name="vehicle2" value="Car">
+                            <input type="checkbox" name="Language[]" value="Chinese">
                             <label for="vehicle2"> ຈີນ</label><br>
                           </div>
                         </div>
                         <div class="col-md-">
                           <div class="form-group">
-                            <input class="form-control" type="text" name="address" placeholder="ພາສາອື່ນ:">
+                            <label for="vehicle2"> ພາສາອື່ນ</label>
+                            <input class="form-control" type="text" name="Language_Other" placeholder="ພາສາອື່ນ:">
+                          </div>
+                        </div>
+                        <div class="col-md-">
+                          <div class="form-group">
+                            <label for="vehicle2"> ອາຊີບ</label>
+                            <input class="form-control" type="text" name="Occupation" placeholder="ອາຊີບ:">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group mb--0">
-                            <button onclick="window.location.href = 'candidate-details.html';"
-                              class="btn-theme d-block w-100" type="submit">ບັນທຶກ</button>
+                            <button class="btn-theme d-block w-100" type="submit" name="saveTask">ບັນທຶກ</button>
+
+                            <!-- <button onclick="window.location.href = 'candidate-details.html';" class="btn-theme d-block w-100" type="submit">ບັນທຶກ</button> -->
                           </div>
                         </div>
                       </div>
@@ -231,68 +259,89 @@
                   </div>
                   <div class="summery-info">
                     <table class="table">
-                      <tbody>
-                        <tr>
-                          <td class="table-name">ສາຂາຮຽນ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ລະດັບການສຶກສາ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ສະຖະນະ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ເພດ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ອາຍຸ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
 
-                        <tr>
-                          <td class="table-name">ວັນ/ເດືອນ/ປີ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ອີເມວ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ເບີຕິດຕໍ່</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ທີ່ຢູ່ປັດຈຸບັນ</td>
-                          <td class="dotted">:</td>
-                          <td>Null</td>
-                        </tr>
-                      </tbody>
+                      <?php
+                      $stmt = $conn->query("SELECT * FROM customer WHERE ID = $user_id ");
+                      $show_data_user = $stmt->fetchAll();
+
+                      foreach ($show_data_user as $user) {
+
+                      ?>
+
+                        <tbody>
+                          <tr>
+                            <td class="table-name">ສາຂາຮຽນ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Study'] ? $user['Study'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ລະດັບການສຶກສາ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Education_level'] ? $user['Education_level'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ສະຖະນະ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Status'] ? $user['Status'] : 'ບັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ເພດ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Gender'] ? $user['Gender'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ອາຍຸ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Age'] ? $user['Age'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+
+                          <tr>
+                            <td class="table-name">ວັນ/ເດືອນ/ປີ</td>
+                            <td class="dotted">:</td>
+                            <td>
+                              <?php
+                              if (isset($user['DataOfBirth']) && $user['DataOfBirth'] != '') {
+                                // Convert to timestamp and format the date
+                                $timestamp = strtotime($user['DataOfBirth']);
+                                echo date('Y-m-d', $timestamp);
+                              } else {
+                                echo 'ບັງບໍ່ມີຂໍ້ມູນ';
+                              }
+                              ?>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ອີເມວ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Email']; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ເບີຕິດຕໍ່</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Tel'] ? $user['Tel'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ທີ່ຢູ່ປັດຈຸບັນ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $user['Province'] ? $user['Province'] : 'ບັງບໍ່ມີຂໍ້ມູນ'; ?></td>
+                          </tr>
+                        </tbody>
+                      <?php   }
+                      ?>
                     </table>
                   </div>
                 </div>
+
+               
                 <div class="widget-item">
                   <div class="widget-title">
                     <h3 class="title">Share</h3>
                   </div>
                   <div class="social-icons">
-                    <a href="https://www.facebook.com" target="_blank" rel="noopener"><i
-                        class="icofont-facebook"></i></a>
+                    <a href="https://www.facebook.com" target="_blank" rel="noopener"><i class="icofont-facebook"></i></a>
                     <a href="https://twitter.com" target="_blank" rel="noopener"><i class="icofont-twitter"></i></a>
                     <a href="https://www.skype.com" target="_blank" rel="noopener"><i class="icofont-skype"></i></a>
-                    <a href="https://www.pinterest.com" target="_blank" rel="noopener"><i
-                        class="icofont-pinterest"></i></a>
+                    <a href="https://www.pinterest.com" target="_blank" rel="noopener"><i class="icofont-pinterest"></i></a>
                     <a href="https://dribbble.com/" target="_blank" rel="noopener"><i class="icofont-dribbble"></i></a>
                   </div>
                 </div>
@@ -330,12 +379,10 @@
     <div id="scroll-to-top" class="scroll-to-top"><span class="icofont-rounded-up"></span></div>
 
     <!--== Start Aside Menu ==-->
-    <aside class="off-canvas-wrapper offcanvas offcanvas-start" tabindex="-1" id="AsideOffcanvasMenu"
-      aria-labelledby="offcanvasExampleLabel">
+    <aside class="off-canvas-wrapper offcanvas offcanvas-start" tabindex="-1" id="AsideOffcanvasMenu" aria-labelledby="offcanvasExampleLabel">
       <div class="offcanvas-header">
         <h1 class="d-none" id="offcanvasExampleLabel">Aside Menu</h1>
-        <button class="btn-menu-close" data-bs-dismiss="offcanvas" aria-label="Close">menu <i
-            class="icofont-simple-left"></i></button>
+        <button class="btn-menu-close" data-bs-dismiss="offcanvas" aria-label="Close">menu <i class="icofont-simple-left"></i></button>
       </div>
       <div class="offcanvas-body">
         <!-- Mobile Menu Start -->
@@ -383,28 +430,32 @@
   <!--=======================Javascript============================-->
 
   <!--=== jQuery Modernizr Min Js ===-->
-  <script src="assets/js/modernizr.js"></script>
-  <!--=== jQuery Min Js ===-->
-  <script src="assets/js/jquery-main.js"></script>
+  <!-- <script src="assets/js/modernizr.js"></script> -->
+  <!-- === jQuery Min Js === -->
+  <!-- <script src="assets/js/jquery-main.js"></script> -->
   <!--=== jQuery Migration Min Js ===-->
-  <script src="assets/js/jquery-migrate.js"></script>
+  <!-- <script src="assets/js/jquery-migrate.js"></script> -->
   <!--=== jQuery Popper Min Js ===-->
-  <script src="assets/js/popper.min.js"></script>
+  <!-- <script src="assets/js/popper.min.js"></script> -->
   <!--=== jQuery Bootstrap Min Js ===-->
-  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- <script src="assets/js/bootstrap.min.js"></script> -->
   <!--=== jQuery Swiper Min Js ===-->
-  <script src="assets/js/swiper.min.js"></script>
+  <!-- <script src="assets/js/swiper.min.js"></script> -->
   <!--=== jQuery Fancybox Min Js ===-->
-  <script src="assets/js/fancybox.min.js"></script>
+  <!-- <script src="assets/js/fancybox.min.js"></script> -->
   <!--=== jQuery Aos Min Js ===-->
-  <script src="assets/js/aos.min.js"></script>
+  <!-- <script src="assets/js/aos.min.js"></script> -->
   <!--=== jQuery Counterup Min Js ===-->
-  <script src="assets/js/counterup.js"></script>
+  <!-- <script src="assets/js/counterup.js"></script> -->
   <!--=== jQuery Waypoint Js ===-->
-  <script src="assets/js/waypoint.js"></script>
+  <!-- <script src="assets/js/waypoint.js"></script> -->
 
   <!--=== jQuery Custom Js ===-->
-  <script src="assets/js/custom.js"></script>
+  <!-- <script src="assets/js/custom.js"></script> -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
+  <script src="assets/js/jquery-main.js"></script>
 
 </body>
 

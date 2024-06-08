@@ -1,8 +1,6 @@
 <?php
 session_start();
 require_once '../connect-database/config.php';
-require_once './get_districts.php';
-require_once './get_village.php';
 
 
 if (!isset($_SESSION['company_login'])) {
@@ -57,6 +55,21 @@ if (!isset($_SESSION['company_login'])) {
   <!--== Main Style CSS ==-->
   <link href="assets/css/style.css" rel="stylesheet" />
 </head>
+<style>
+  /* input[type="file"] {
+    display: none;
+  } */
+  .custom {
+    border: 1px solid #ccc;
+    color: #fff;
+    display: inline-block;
+    padding: 12px 12px;
+    margin-right: 10rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: green;
+  }
+</style>
 
 <body>
 
@@ -147,10 +160,10 @@ if (!isset($_SESSION['company_login'])) {
       <section class="team-details-area">
         <form id="contact-form" enctype="multipart/form-data" action="./company_insert_data.php" method="POST">
           <input type="hidden" name="ID" value="<?= $company['ID'] ?>">
-          <input type="hidden" name="Name_company" value="<?= $company['Name_company'] ?>">
-          <input type="hidden" name="Email" value="<?= $company['Email'] ?>">
-          <input type="hidden" name="Password" value="<?= $company['Password'] ?>">
-          <input type="hidden" name="Status" value="<?= $company['Status'] ?>">
+          <!-- create name image -->
+          <input type="hidden" value="<?= $company['Profile_picture']; ?>" require class="form-control" name="Profile_picture1">
+          <input type="hidden" value="<?= $company['Business_image']; ?>" require class="form-control" name="Business_image1">
+          <input type="hidden" value="<?= $company['All_image']; ?>" require class="form-control" name="All_image1">
           <div class="container">
             <div class="row">
               <div class="col-12">
@@ -169,8 +182,12 @@ if (!isset($_SESSION['company_login'])) {
                   </div>
                   <div class="team-details-btn">
 
-                    <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br>
+                    <!-- <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br> -->
                     <!-- <button type="button" class="btn-theme">ປ່ຽນຮູບ</button> -->
+                    <label class="fw-bold m-lg-3" for="custom">
+                      ເລືອກຮູບພາບປ່ຽນ
+                    </label>
+                    <input type="file" id="custom" name="Profile_picture" accept="image/*">
                   </div>
                 </div>
               </div>
@@ -197,18 +214,19 @@ if (!isset($_SESSION['company_login'])) {
                             <input class="form-control" type="email" name="Email" placeholder="ອິເມວ:" value="<?= $company['Email'] ?>">
                           </div>
                         </div>
-                        <div class="col-md-12">
+                        <!-- <div class="col-md-12">
                           <div class="form-group">
                             <label class="model">ລະຫັດຜ່ານ</label>
-                            <input class="form-control" type="text" name="Password" placeholder="ລະຫັດຜ່ານ:" value="<?= $company['Password'] ?> " readonly>
+                            <input class="form-control" type="hidden" name="Password" value="<?= $company['Password'] ?>">
+                            <input class="form-control" type="password" name="Password" placeholder="ລະຫັດຜ່ານ:">
                           </div>
-                        </div>
-                        <div class="col-md-12">
+                        </div> -->
+                        <!-- <div class="col-md-12">
                           <div class="form-group">
                             <label class="model">ລະຫັດຜ່ານ</label>
-                            <input class="form-control" type="password" name="NewPassword" placeholder="ລະຫັດຜ່ານໃໝ່:">
+                            <input class="form-control" type="password" name="Password" placeholder="ລະຫັດຜ່ານໃໝ່:">
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="model">ຮູບແບບທຸລະກິດ</label>
@@ -218,44 +236,24 @@ if (!isset($_SESSION['company_login'])) {
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="province">ແຂວງ</label>
-                            <select class="form-select" aria-label="Default select example" name="Province" id="provinceSelect">
-                              <option value="" selected>-----</option>
-                              <?php
-
-                              // $stmt = $conn->query("SELECT brand.id as p_d,  brand.namebrand,brand.company_id,company.id FROM brand,company where brand.company_id = company.id and brand.company_id = $id;");
-                              // // $stmt = $conn->query("SELECT * FROM brand");
-                              // $stmt->execute();
-                              // $brandcar = $stmt->fetchAll();
-                              // foreach ($brandcar as $brand) {
-
-
-
-                              $stmt = $conn->query("SELECT pr_id, pr_name FROM province");
-                              $stmt->execute();
-                              $provincestmt = $stmt->fetchAll();
-                              foreach ($provincestmt as $province) {
-                              ?>
-                                <option value="<?= $province['pr_id']; ?>"> <?= $province['pr_name']; ?></option>
-                              <?php   }
-                              ?>
-                            </select>
+                            <input type="text" class="form-control" name="Province" placeholder="ແຂວງ:" value="<?= $company['Province'] ?>">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="district">ເມືອງ</label>
-                            <select class="form-select" aria-label="Default select example" name="District" id="districtSelect">
-                              <option value="" selected>-----</option>
-                            </select>
+                            <input type="text" class="form-control" name="District" placeholder="ເມືອງ:" value="<?= $company['District'] ?>">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="village">ບ້ານ</label>
-                            <select class="form-select" aria-label="Default select example" name="Village" id="villageSelect">
-                              <option value="" selected>-----</option>
-                            </select>
+                            <input type="text" class="form-control" name="Village" placeholder="ບ້ານ:" value="<?= $company['Village'] ?>">
                           </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="form-label">ສັນຊາດ</label>
+                          <input class="form-control" type="text" name="Nationality" placeholder="ສັນຊາດ:" value="<?= $company['Nationality'] ?>">
                         </div>
                         <!-- <div class="col-md-12">
                           <div class="form-group">
@@ -279,7 +277,7 @@ if (!isset($_SESSION['company_login'])) {
                           <div class="form-group">
                             <label for="img">ຮູບພາບລວມບໍລິສັດ:</label>
                             <input type="file" id="image_company_All" name="All_image">
-                            <img width="100%" src="../folder-image-company/all-image/<?= $company['Business_image'] ?>" id="perview_All" class="mt-2 rounded" alt="">
+                            <img width="100%" src="../folder-image-company/all-image/<?= $company['All_image'] ?>" id="perview_All" class="mt-2 rounded" alt="">
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -437,7 +435,7 @@ if (!isset($_SESSION['company_login'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <!-- JavaScript Bundle with Popper -->
-  <script src="./setValue_select.js"></script>
+  <!-- <script src="./setValue_select.js"></script> -->
 
 
   <script>

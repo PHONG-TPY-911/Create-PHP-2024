@@ -59,7 +59,7 @@ if (isset($_POST['login_customer'])) {
                       });
                       </script>";
 
-              header("refresh:2; url=../customer/candidate-details.php");
+              header("refresh:2; url=../customer/candidate-details-skill-add.php");
             }
           } else {
             $_SESSION['error'] = 'ລະຫັດຜ່ານບໍ່ຖືກຕ້ອງ';
