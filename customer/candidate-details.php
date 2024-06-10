@@ -118,7 +118,7 @@ if (!isset($_SESSION['user_login'])) {
             <div class="header-align">
               <div class="header-align-start">
                 <div class="header-logo-area">
-                  <a href="index.html">
+                  <a href="index.php">
                     <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
                     <img class="logo-light" src="assets/img/logo-light.png" alt="Logo" />
                   </a>
@@ -127,8 +127,8 @@ if (!isset($_SESSION['user_login'])) {
               <div class="header-align-center">
                 <div class="header-navigation-area position-relative">
                   <ul class="main-menu nav">
-                    <li><a href="index.html"><span>ໜ້າຫຼັກ</span></a></li>
-                    <li><a href="job.html"><span>ປະກາດວຽກ</span></a></li>
+                    <li><a href="index.php"><span>ໜ້າຫຼັກ</span></a></li>
+                    <li><a href="job.php"><span>ປະກາດວຽກ</span></a></li>
                     <li><a href="candidate.html"><span>ບໍລີສັດ</span></a></li>
                     <li><a href="about-us.html"><span>ກ່ຽວກັບ</span></a></li>
                     <li><a href="contact.html"><span>ຕິດຕໍ່</span></a></li>
@@ -168,7 +168,7 @@ if (!isset($_SESSION['user_login'])) {
                 <h2 class="title">ຂໍ້ມູນສ່ວນຕົວ</h2>
                 <nav class="breadcrumb-area">
                   <ul class="breadcrumb justify-content-center">
-                    <li><a href="index.html">ໜ້າຫຼັກ</a></li>
+                    <li><a href="index.php">ໜ້າຫຼັກ</a></li>
                     <li class="breadcrumb-sep">//</li>
                     <li>ຂໍ້ມູນສ່ວນຕົວ</li>
                   </ul>
@@ -549,10 +549,10 @@ if (!isset($_SESSION['user_login'])) {
       <!-- Mobile Menu Start -->
       <div class="mobile-menu-items">
         <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="#">Find Jobs</a>
             <ul class="sub-menu">
-              <li><a href="job.html">Jobs</a></li>
+              <li><a href="job.php">Jobs</a></li>
               <li><a href="job-details.html">Job Details</a></li>
             </ul>
           </li>

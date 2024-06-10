@@ -49,7 +49,7 @@
           <div class="header-align">
             <div class="header-align-start">
               <div class="header-logo-area">
-                <a href="index.html">
+                <a href="index.php">
                   <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
                   <img class="logo-light" src="assets/img/logo-light.png" alt="Logo" />
                 </a>
@@ -58,8 +58,8 @@
             <div class="header-align-center">
               <div class="header-navigation-area position-relative">
                 <ul class="main-menu nav">
-                  <li><a href="index.html"><span>ໜ້າຫຼັກ</span></a></li>
-                  <li><a href="job.html"><span>ປະກາດວຽກ</span></a></li>
+                  <li><a href="index.php"><span>ໜ້າຫຼັກ</span></a></li>
+                  <li><a href="job.php"><span>ປະກາດວຽກ</span></a></li>
                   
                   <li><a href="candidate.html"><span>ບໍລີສັດ</span></a></li>
                   <li><a href="about-us.html"><span>ກ່ຽວກັບ</span></a></li>
@@ -194,7 +194,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">Front-end Developer</a></h3>
+                <h3 class="title"><a href="job-details.php">Front-end Developer</a></h3>
                 <h5 class="work-type">Full-time</h5>
                 <p class="desc">ພາສາ CSS3, HTML5, Javascript, Bootstrap, Jquery</p>
               </div>
@@ -203,7 +203,7 @@
                   <h4>9,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -221,7 +221,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">Senior UI Designer</a></h3>
+                <h3 class="title"><a href="job-details.php">Senior UI Designer</a></h3>
                 <h5 class="work-type" data-text-color="#ff7e00">Part-time</h5>
                 <p class="desc">ນຳໃຊ້ໂປແກຣມ Figma, Adobe Illustrator, Adobe Photoshop</p>
               </div>
@@ -230,7 +230,7 @@
                   <h4>7,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -248,7 +248,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">Graphic Designer</a></h3>
+                <h3 class="title"><a href="job-details.php">Graphic Designer</a></h3>
                 <h5 class="work-type">Full-time</h5>
                 <p class="desc">ນຳໃຊ້ໂປແກຣມ Adobe Illustrator, Adobe Photoshop, ProCreate</p>
               </div>
@@ -257,7 +257,7 @@
                   <h4>9,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -275,7 +275,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">Back-end Developer</a></h3>
+                <h3 class="title"><a href="job-details.php">Back-end Developer</a></h3>
                 <h5 class="work-type">Full-time</h5>
                 <p class="desc">ພາສາ JAVA, Flutter, Node JS, Bootstrap, Jquery</p>
               </div>
@@ -284,7 +284,7 @@
                   <h4>8,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -302,7 +302,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">Graphic Designer</a></h3>
+                <h3 class="title"><a href="job-details.php">Graphic Designer</a></h3>
                 <h5 class="work-type">Full-time</h5>
                 <p class="desc">ນຳໃຊ້ໂປແກຣມ Adobe Illustrator, Adobe Photoshop, ProCreate</p>
               </div>
@@ -311,7 +311,7 @@
                   <h4>9,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -329,7 +329,7 @@
                 </div>
               </div>
               <div class="main-content">
-                <h3 class="title"><a href="job-details.html">ພະນັກງານເສີບ</a></h3>
+                <h3 class="title"><a href="job-details.php">ພະນັກງານເສີບ</a></h3>
                 <h5 class="work-type" data-text-color="#ff7e00">Part-time</h5>
                 <p class="desc">ເສີບອາຫານ <br> ແລະ ບໍລິການລູກຄ້າ</p>
               </div>
@@ -338,7 +338,7 @@
                   <h4>5,000,000LAK</h4>
                   <p>/ເດືອນ</p>
                 </div>
-                <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
+                <a class="btn-theme btn-sm" href="job-details.php">ສະໝັກ</a>
               </div>
             </div>
             <!--== End Recent Job Item ==-->
@@ -797,7 +797,7 @@
           <div class="col-md-6 col-lg-3">
             <div class="widget-item widget-about">
               <div class="widget-logo-area">
-                <a href="index.html">
+                <a href="index.php">
                   <img class="logo-main" src="assets/img/logo-light-theme.png" alt="Logo" />
                 </a>
               </div>
@@ -838,9 +838,9 @@
                       <div class="widget-menu-wrap">
                         <ul class="nav-menu">
                           <li><a href="account-login.html">Quick Links</a></li>
-                          <li><a href="job.html">Job Packages</a></li>
-                          <li><a href="job.html">Post New Job</a></li>
-                          <li><a href="job.html">Jobs Listing</a></li>
+                          <li><a href="job.php">Job Packages</a></li>
+                          <li><a href="job.php">Post New Job</a></li>
+                          <li><a href="job.php">Jobs Listing</a></li>
                         </ul>
                       </div>
                     </div>
@@ -858,7 +858,7 @@
                           <li><a href="account-login.html">Affiliate</a></li>
                           <li><a href="blog.html">Blog</a></li>
                           <li><a href="account-login.html">Help & Support</a></li>
-                          <li><a href="job.html">Careers</a></li>
+                          <li><a href="job.php">Careers</a></li>
                         </ul>
                       </div>
                     </div>
@@ -919,11 +919,11 @@
       <!-- Mobile Menu Start -->
       <div class="mobile-menu-items">
         <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="#">Find Jobs</a>
             <ul class="sub-menu">
-              <li><a href="job.html">Jobs</a></li>
-              <li><a href="job-details.html">Job Details</a></li>
+              <li><a href="job.php">Jobs</a></li>
+              <li><a href="job-details.php">Job Details</a></li>
             </ul>
           </li>
           <li><a href="employers-details.html">Employers Details</a></li>

@@ -1,6 +1,5 @@
 <?php require_once '../customer/folder_header.php' ?>
 
-
   <main class="main-content">
         <!--== Start Page Header Area Wrapper ==-->
         <div class="page-header-area sec-overlay sec-overlay-black" data-bg-img="assets/img/photos/bg2.jpg">

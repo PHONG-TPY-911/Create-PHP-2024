@@ -32,10 +32,10 @@
       <!-- Mobile Menu Start -->
       <div class="mobile-menu-items">
         <ul class="nav-menu">
-          <li><a href="index.html">Home</a></li>
+          <li><a href="index.php">Home</a></li>
           <li><a href="#">Find Jobs</a>
             <ul class="sub-menu">
-              <li><a href="job.html">Jobs</a></li>
+              <li><a href="job.php">Jobs</a></li>
               <li><a href="job-details.html">Job Details</a></li>
             </ul>
           </li>
