@@ -44,6 +44,18 @@ if (!isset($_SESSION['user_login'])) {
   <!--== Main Style CSS ==-->
   <link href="assets/css/style.css" rel="stylesheet" />
 </head>
+<style>
+  body,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Times New Roman', 'Saysettha OT', sans-serif;
+  }
+</style>
 
 <body>
 
@@ -53,7 +65,7 @@ if (!isset($_SESSION['user_login'])) {
 
     if (isset($_SESSION['user_login']))
       $user_id = $_SESSION['user_login'];
-    echo 'User ID' . $user_id;
+    // echo 'User ID' . $user_id;
     $stmt = $conn->query("SELECT * FROM customer WHERE ID = $user_id ");
     $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
     ?>
@@ -332,7 +344,7 @@ if (!isset($_SESSION['user_login'])) {
                   </div>
                 </div>
 
-               
+
                 <div class="widget-item">
                   <div class="widget-title">
                     <h3 class="title">Share</h3>

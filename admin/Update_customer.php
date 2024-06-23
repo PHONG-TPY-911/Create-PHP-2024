@@ -29,31 +29,7 @@ if (isset($_POST['record_info_customer'])) {
   $Declaration = $_FILES['Declaration'];
   $Score = $_FILES['Score'];
   $Cv = $_FILES['Cv'];
-  $ID_task_information = isset($_POST['ID_Task']) ? $_POST['ID_Task'] : '';
-  
-  // print_r($Status_user);
-  //img Profile_picture
-
-  // $Profile_picture1 = $_POST['Profile_picture1'];
-  // $upload = $_FILES['Profile_picture']['name'];
-  // if ($upload != '') {
-  //   //filename.jpg
-  //   $allow = array('jpg', 'jpeg', 'png');
-  //   $extension = explode(".", $Profile_picture['name']);
-  //   $fileActExt = strtolower(end($extension));
-  //   $fileNew1 = rand() . "." . $fileActExt;
-  //   $filePath1 = "../folder-image/image-profile/" . $fileNew1;
-
-  //   if (in_array($fileActExt, $allow)) {
-  //     if ($Profile_picture['size'] > 0 && $Profile_picture['error'] == 0) {
-  //       move_uploaded_file($Profile_picture['tmp_name'], $filePath1);
-  //     }
-  //   }
-  // } else {
-  //   $fileNew1 = $Profile_picture1;
-  // }
-
-  //img Declaration
+  $ID_task_information = $_POST['ID_task_information'];
 
   $Declaration1 = $_POST['Declaration1'];
   $upload = $_FILES['Declaration']['name'];
@@ -75,7 +51,6 @@ if (isset($_POST['record_info_customer'])) {
   }
 
   //img Score
-
   $Score1 = $_POST['Score1'];
   $upload = $_FILES['Score']['name'];
   if ($upload != '') {
@@ -96,7 +71,6 @@ if (isset($_POST['record_info_customer'])) {
   }
 
   //img Cv
-
   $Cv1 = $_POST['Cv1'];
   $upload = $_FILES['Cv']['name'];
   if ($upload != '') {
@@ -143,7 +117,7 @@ if (isset($_POST['record_info_customer'])) {
   $stmt->bindParam(":Gender", $Gender);
   $stmt->bindParam(":Nationality", $Nationality);
   $stmt->bindParam(":Status_user", $Status_user);
-  $stmt->bindParam(":ID_task_information", $ID_task_information);
+  // $stmt->bindParam(":ID_task_information", $ID_task_information);
   // $stmt->bindParam(":Profile_picture", $fileNew1);
   $stmt->bindParam(":Declaration", $fileNew2);
   $stmt->bindParam(":Score", $fileNew3);
@@ -162,7 +136,8 @@ if (isset($_POST['record_info_customer'])) {
       });
   });
   </script>";
-    header("refresh:3; url=admin/Table_customer.php");
+    // header("refresh:3; url=admin/Table_customer.php");
+    header("location: Table_customer.php");
   } else {
     $_SESSION['error'] = "ມີບາງຢ່າງເກິດການຜິດພາດ ບໍ່ສາມາດເພີ່ມຂໍ້ມູນາສຳເລັດ";
     header("location: Edit_customer.php");

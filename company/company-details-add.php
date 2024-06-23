@@ -149,7 +149,7 @@ if (!isset($_SESSION['company_login'])) {
 
       if (isset($_GET['id'])) {
         $ID = $_GET['id'];
-        echo 'User ID' . $ID;
+        // echo 'User ID' . $ID;
         $stmt = $conn->query("SELECT * FROM company WHERE ID = $ID ");
         $stmt->execute();
         $company = $stmt->fetch(PDO::FETCH_ASSOC);

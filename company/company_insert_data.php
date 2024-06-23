@@ -25,6 +25,7 @@ if (isset($_POST['Submit'])) {
   $Profile_picture = $_FILES['Profile_picture'];
   $All_image = $_FILES['All_image'];
   $ID_employee = "";
+  $InfoFull = "full";
 
 
   //image  //img Profile_picture
@@ -122,7 +123,7 @@ if (isset($_POST['Submit'])) {
   // $passwordHash = password_hash($Password, PASSWORD_DEFAULT);
   try {
     //Update information
-    $stmt = $conn->prepare("UPDATE company SET Name_company = :Name_company, All_image = :All_image, Business_model = :Business_model, Nationality = :Nationality, Business_image = :Business_image, Village = :Village, District = :District, Province = :Province, Tel = :Tel, Email = :Email, Profile_picture = :Profile_picture, ID_employee = :ID_employee WHERE ID = :ID ");
+    $stmt = $conn->prepare("UPDATE company SET Name_company = :Name_company, All_image = :All_image, Business_model = :Business_model, Nationality = :Nationality, Business_image = :Business_image, Village = :Village, District = :District, Province = :Province, Tel = :Tel, Email = :Email, Profile_picture = :Profile_picture, ID_employee = :ID_employee, InfoFull =:InfoFull WHERE ID = :ID ");
 
     $stmt->bindParam(":ID", $ID);
     $stmt->bindParam(":Name_company", $Name_company);
@@ -138,6 +139,7 @@ if (isset($_POST['Submit'])) {
     $stmt->bindParam(":Business_image", $fileNew2);
     $stmt->bindParam(":All_image", $fileNew3);
     $stmt->bindParam(":ID_employee", $ID_employee);
+    $stmt->bindParam(":InfoFull", $InfoFull);
     // $stmt->bindParam(":Password", $passwordHash);
     $stmt->execute();
     // $_SESSION['success'] = "ສະໝັກສະມາຊີກຮຽບຮ້ອຍ!<a href='signin.php' class='alert-link' >ຄິກທີ່ນີ້</a>ເພື່ອເຂົ້າສູ່ລະບົບ";

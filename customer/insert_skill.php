@@ -16,7 +16,7 @@ if (isset($_POST['saveTask'])) {
   $Occupation = $_POST['Occupation'];
   $ID = $_POST['ID'];
 
-  $sql = $conn->prepare("INSERT INTO Taskinformation(Skill, Skill_Other, Language, Occupation, Job_content, Language_Other, ID )
+  $sql = $conn->prepare("UPDATE Taskinformation Skill, Skill_Other, Language, Occupation, Job_content, Language_Other, ID )
    VALUES(:Skill, :Skill_Other, :Language, :Occupation, :Job_content, :Language_Other, :ID)");
   $sql->bindParam(':Skill', $skills);
   $sql->bindParam(':Skill_Other', $Skill_Other);
@@ -40,7 +40,7 @@ if (isset($_POST['saveTask'])) {
   });
   
   </script>";
-    header("refresh:2; url= candidate-details-main.php");
+    header("refresh:2; url= candidate-details.php.php");
   } else {
     // $_SESSION['error'] = "ມີບາງຢ່າງເກິດການຜິດພາດ ບໍ່ສາມາດເພີ່ມຂໍ້ມູນາສຳເລັດ";
     echo "<script>

@@ -59,7 +59,7 @@ if (!isset($_SESSION['company_login'])) {
             <div class="header-align">
               <div class="header-align-start">
                 <div class="header-logo-area">
-                  <a href="index.html">
+                  <a href="index.php">
                     <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
                     <img class="logo-light" src="assets/img/logo-light.png" alt="Logo" />
                   </a>
@@ -144,11 +144,29 @@ if (!isset($_SESSION['company_login'])) {
                     <h5 class="sub-title"><?= $company['Business_model'] ?></h5>
                     <ul class="info-list">
                       <!-- <li><i class="icofont-location-pin"></i> Vientiane, Laos</li> -->
-                      <a style="color:#00CC00" href="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B9%8C/@17.9605855,102.5233634,12z/data=!3m1!4b1!4m6!3m5!1s0x3124688606ed7b21:0x1f93b18618c1eedf!8m2!3d17.9757058!4d102.6331035!16zL20vMGZ0cDg?entry=ttu" target="_blank"><li><i class="icofont-location-pin" style="color:#00CC00"></i> <?= $company['Province'] ?></a> , <?= $company['Nationality'] ?></li>
+                      <a style="color:#00CC00" href="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B9%8C/@17.9605855,102.5233634,12z/data=!3m1!4b1!4m6!3m5!1s0x3124688606ed7b21:0x1f93b18618c1eedf!8m2!3d17.9757058!4d102.6331035!16zL20vMGZ0cDg?entry=ttu" target="_blank">
+                        <li><i class="icofont-location-pin" style="color:#00CC00"></i> <?= $company['Province'] ?>
+                      </a> , <?= $company['Nationality'] ?></li>
 
                     </ul> <br>
                     <!-- <a href="company-details-add.php?id=<?= $company['ID'] ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a> -->
                     <a href="company-details-add.php?id=<?= isset($_SESSION['company_login']) ? $_SESSION['company_login'] : 'ຍັງບໍໄດ້ login ເທື່ອ!' ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a>
+
+                    <!-- check if company === passed  show button click go to admin-->
+                    <?php
+                    $smts = $conn->query("SELECT * FROM company WHERE InfoFull = 'passed'");
+                    $check_company = $smts->fetch(PDO::FETCH_ASSOC);
+
+                    if ($check_company && $check_company['InfoFull'] === 'passed') {
+                    ?>
+                      <a href="./admin/Index.php?id=<?= isset($_SESSION['company_login']) ? $_SESSION['company_login'] : 'ຍັງບໍໄດ້ login ເທື່ອ!' ?>">
+                        <button type="button" class="btn-theme">ໜ້າຈັດການລະບົບຫຼັງບ້ານ</button>
+                      </a>
+                    <?php
+                    } else {
+                      echo "ຂໍ້ມູນຂອງບໍລິສັດທ່ານ ຍັງບໍ່ຄົບເທື່ອ";
+                    }
+                    ?>
 
                   </div>
                 </div>
@@ -202,7 +220,7 @@ if (!isset($_SESSION['company_login'])) {
                         <tr>
                           <td class="table-name">ອີເມວ</td>
                           <td class="dotted">:</td>
-                          <td><?= $company['Name_company'] ? $company['Name_company'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          <td><?= $company['Email'] ? $company['Email'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
                         </tr>
                         <tr>
                           <td class="table-name">ເບີຕິດຕໍ່</td>

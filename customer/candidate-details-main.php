@@ -52,7 +52,7 @@ require_once '../connect-database/config.php';
     <?php
     if (isset($_SESSION['user_login']))
       $user_id = $_SESSION['user_login'];
-    echo 'User ID' . $user_id;
+    // echo 'User ID' . $user_id;
     // $stmt = $conn->query("SELECT * FROM taskinformation");
     $stmt = $conn->query("SELECT * FROM taskinformation WHERE ID = $user_id ");
     $user_data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -71,7 +71,7 @@ require_once '../connect-database/config.php';
             <div class="header-align">
               <div class="header-align-start">
                 <div class="header-logo-area">
-                  <a href="index.html">
+                  <a href="index.php">
                     <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
                     <img class="logo-light" src="assets/img/logo-light.png" alt="Logo" />
                   </a>

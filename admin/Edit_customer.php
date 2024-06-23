@@ -21,13 +21,26 @@
   <input type="hidden" value="<?= $user_data['Declaration']; ?>" require class="form-control" name="Declaration1">
   <input type="hidden" value="<?= $user_data['Score']; ?>" require class="form-control" name="Score1">
   <input type="hidden" value="<?= $user_data['Cv']; ?>" require class="form-control" name="Cv1">
-  <input type="hidden" name="ID_Task" value="<?= $ID_task['ID_Task'] ?>">
+  <input type="hidden" value="<?= $user_data['Password']; ?>" require class="form-control" name="Password">
+  <!-- <input type="hidden" value="<?= $user_data['Email']; ?>" require class="form-control" name="Email">
+  <input type="hidden" value="<?= $user_data['Status']; ?>" require class="form-control" name="Status"> -->
+
+  <?php
+  $user_id = $user_data['ID'];
+  $stmt = $conn->prepare("SELECT ID_Task,ID FROM taskinformation WHERE ID = :user_id");
+  $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+  $stmt->execute();
+  $ID_task = $stmt->fetch(PDO::FETCH_ASSOC);
+  ?>
+
+  <input type="hidden" name="ID_task_information" value="<?= htmlspecialchars($ID_task['ID_Task']); ?>">
   <div class="row">
     <!-- <div class="col-lg-7 col-xl-8"> -->
     <div class="team-details-item">
       <div class="widget-item widget-contact">
         <div class="widget-title mb-5">
           <h3 class="title">ເພີ່ມຂໍ້ມູນເພື່ອຢືນຢັນ</h3>
+          <hr width="210">
         </div>
         <div class="widget-contact-form">
           <div class="row">
