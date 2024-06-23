@@ -168,7 +168,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +213,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
@@ -235,7 +235,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
@@ -279,7 +279,7 @@
                                 </div>
                                 <div class="job-details-price">
                                     <h4 class="title">$8,000,000 ກີບ <span>/ເດືອນ</span></h4>
-                                    <button type="button" class="btn-theme">ສະໝັກ</button>
+                                    <a class="btn-theme btn-sm"  href="job-details.php">ສະໝັກ</a>
                                 </div>
                             </div>
                         </div>
