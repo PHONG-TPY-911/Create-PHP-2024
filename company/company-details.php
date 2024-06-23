@@ -4,7 +4,7 @@ require_once '../connect-database/config.php';
 
 if (!isset($_SESSION['company_login'])) {
   $_SESSION['error'] = "ກາລຸນາເຂົ້າສູ່ລະບົບ";
-  header("location: login.php");
+  header("location: ../customer/login.php");
 }
 ?>
 
@@ -36,9 +36,9 @@ if (!isset($_SESSION['company_login'])) {
   <!--== Icofont Icon CSS ==-->
   <link href="assets/css/icofont.css" rel="stylesheet" />
   <!--== Swiper CSS ==-->
-  <link href="assets/css/swiper.min.css" rel="stylesheet" />
+  <!-- <link href="assets/css/swiper.min.css" rel="stylesheet" /> -->
   <!--== Fancybox Min CSS ==-->
-  <link href="assets/css/fancybox.min.css" rel="stylesheet" />
+  <!-- <link href="assets/css/fancybox.min.css" rel="stylesheet" /> -->
   <!--== Aos Min CSS ==-->
   <link href="assets/css/aos.min.css" rel="stylesheet" />
 
@@ -59,7 +59,7 @@ if (!isset($_SESSION['company_login'])) {
             <div class="header-align">
               <div class="header-align-start">
                 <div class="header-logo-area">
-                  <a href="index.html">
+                  <a href="index.php">
                     <img class="logo-main" src="assets/img/logo-light.png" alt="Logo" />
                     <img class="logo-light" src="assets/img/logo-light.png" alt="Logo" />
                   </a>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['company_login'])) {
         $company_id = $_SESSION['company_login'];
       // echo 'User ID' . $company_id;
       $stmt = $conn->query("SELECT * FROM company WHERE ID = $company_id ");
-      $company = $company_data = $stmt->fetch(PDO::FETCH_ASSOC);
+      $company = $stmt->fetch(PDO::FETCH_ASSOC);
       ?>
       <!--== Start Team Details Area Wrapper ==-->
       <section class="team-details-area">
@@ -137,20 +137,72 @@ if (!isset($_SESSION['company_login'])) {
               <div class="team-details-wrap">
                 <div class="team-details-info">
                   <div class="thumb">
-                    <img src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>" width="130" height="130" alt="Image-HasTech">
+                    <img src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>" width="130" height="130" alt="ຮູບໂປຣຟາຍ">
                   </div>
                   <div class="content">
-                    <h4 class="title">KAN CAFE</h4>
-                    <h5 class="sub-title">ຮ້ານອາຫານ ແລະ ເຄື່ອງດື່ມ</h5>
+                    <h4 class="title"><?= $company['Name_company'] ? $company['Name_company'] : "ຍັງບໍ່ມີຂໍ້ມູນ!" ?></h4>
+                    <h5 class="sub-title"><?= $company['Business_model'] ?></h5>
                     <ul class="info-list">
-                      <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
+                      <!-- <li><i class="icofont-location-pin"></i> Vientiane, Laos</li> -->
+                      <a style="color:#00CC00" href="https://www.google.com/maps/place/%E0%B9%80%E0%B8%A7%E0%B8%B5%E0%B8%A2%E0%B8%87%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%99%E0%B9%8C/@17.9605855,102.5233634,12z/data=!3m1!4b1!4m6!3m5!1s0x3124688606ed7b21:0x1f93b18618c1eedf!8m2!3d17.9757058!4d102.6331035!16zL20vMGZ0cDg?entry=ttu" target="_blank">
+                        <li><i class="icofont-location-pin" style="color:#00CC00"></i> <?= $company['Province'] ?>
+                      </a> , <?= $company['Nationality'] ?></li>
+
                     </ul> <br>
-                    <button onclick="window.location.href = 'company-details-add.php';" type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button>
+                    <!-- <a href="company-details-add.php?id=<?= $company['ID'] ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a> -->
+                    <a href="company-details-add.php?id=<?= isset($_SESSION['company_login']) ? $_SESSION['company_login'] : 'ຍັງບໍໄດ້ login ເທື່ອ!' ?>"><button type="button" class="btn-theme">ຂໍ້ມູນທົ່ວໄປ</button></a>
+
+                    <!-- check if company === passed  show button click go to admin-->
+                    <?php
+                    $smts = $conn->query("SELECT * FROM company WHERE InfoFull = 'passed'");
+                    $check_company = $smts->fetch(PDO::FETCH_ASSOC);
+
+                    if ($check_company && $check_company['InfoFull'] === 'passed') {
+                    ?>
+                      <a href="./admin/Index.php?id=<?= isset($_SESSION['company_login']) ? $_SESSION['company_login'] : 'ຍັງບໍໄດ້ login ເທື່ອ!' ?>">
+                        <button type="button" class="btn-theme">ໜ້າຈັດການລະບົບຫຼັງບ້ານ</button>
+                      </a>
+                    <?php
+                    } else {
+                      echo "ຂໍ້ມູນຂອງບໍລິສັດທ່ານ ຍັງບໍ່ຄົບເທື່ອ";
+                    }
+                    ?>
+
                   </div>
                 </div>
                 <div class="team-details-btn">
-                  <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br>
-                  <button type="button" class="btn-theme">ປ່ຽນຮູບ</button>
+                  <!-- Button trigger modal -->
+                  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"> -->
+                  <button type="button" class="btn-theme" data-bs-toggle="modal" data-bs-target="#exampleModal">ເລືອກຮູບພາບ</button>
+
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <form id="contact-form" enctype="multipart/form-data" action="./Update_profile.php" method="POST">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">ໜ້າເລືອກຮູບໂປຮຟາຍ</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <input type="hidden" name="ID" value="<?= $company['ID'] ?>">
+                            <input type="hidden" value="<?= $company['Profile_picture']; ?>" require class="form-control" name="Profile_picture1">
+                            <label for="img" class="form-label fw-bold">ຮູບພາບ</label>
+                            <input type="file" name="Profile_picture" id="image-company">
+                            <img width="50%" id="perviewImage" class="mt-4 rounded" alt="" src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>">
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ຍົກເລີກ</button>
+                            <button type="submit" name="updateImage" class="btn btn-primary">ບັນທຶກ</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br> -->
+                  <!-- <button type="button" class="btn-theme">ປ່ຽນຮູບ</button> -->
                 </div>
               </div>
             </div>
@@ -168,7 +220,7 @@ if (!isset($_SESSION['company_login'])) {
                         <tr>
                           <td class="table-name">ອີເມວ</td>
                           <td class="dotted">:</td>
-                          <td><?= $company['Name_company'] ? $company['Name_company'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          <td><?= $company['Email'] ? $company['Email'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
                         </tr>
                         <tr>
                           <td class="table-name">ເບີຕິດຕໍ່</td>
@@ -284,28 +336,40 @@ if (!isset($_SESSION['company_login'])) {
   <!--=======================Javascript============================-->
 
   <!--=== jQuery Modernizr Min Js ===-->
-  <script src="assets/js/modernizr.js"></script>
+  <!-- <script src="assets/js/modernizr.js"></script> -->
   <!--=== jQuery Min Js ===-->
-  <script src="assets/js/jquery-main.js"></script>
+  <!-- <script src="assets/js/jquery-main.js"></script> -->
   <!--=== jQuery Migration Min Js ===-->
-  <script src="assets/js/jquery-migrate.js"></script>
+  <!-- <script src="assets/js/jquery-migrate.js"></script> -->
   <!--=== jQuery Popper Min Js ===-->
-  <script src="assets/js/popper.min.js"></script>
+  <!-- <script src="assets/js/popper.min.js"></script> -->
   <!--=== jQuery Bootstrap Min Js ===-->
   <script src="assets/js/bootstrap.min.js"></script>
   <!--=== jQuery Swiper Min Js ===-->
-  <script src="assets/js/swiper.min.js"></script>
+  <!-- <script src="assets/js/swiper.min.js"></script> -->
   <!--=== jQuery Fancybox Min Js ===-->
-  <script src="assets/js/fancybox.min.js"></script>
+  <!-- <script src="assets/js/fancybox.min.js"></script> -->
   <!--=== jQuery Aos Min Js ===-->
-  <script src="assets/js/aos.min.js"></script>
+  <!-- <script src="assets/js/aos.min.js"></script> -->
   <!--=== jQuery Counterup Min Js ===-->
-  <script src="assets/js/counterup.js"></script>
+  <!-- <script src="assets/js/counterup.js"></script> -->
   <!--=== jQuery Waypoint Js ===-->
-  <script src="assets/js/waypoint.js"></script>
+  <!-- <script src="assets/js/waypoint.js"></script> -->
 
   <!--=== jQuery Custom Js ===-->
-  <script src="assets/js/custom.js"></script>
+  <!-- <script src="assets/js/custom.js"></script> -->
+
+
+  <script>
+    let Image_company = document.getElementById('image-company');
+    let preview = document.getElementById('perviewImage');
+    Image_company.onchange = e => {
+      const [file] = Image_company.files;
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    }
+  </script>
 
 </body>
 

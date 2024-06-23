@@ -1,14 +1,13 @@
 <?php
 session_start();
 require_once '../connect-database/config.php';
-require_once './get_districts.php';
-require_once './get_village.php';
 
 
-if (!isset($_SESSION['user_login'])) {
+if (!isset($_SESSION['company_login'])) {
   $_SESSION['error'] = 'ກາລຸນາເຂົ້າສູ່ລະບົບ!';
-  header("location: login.php");
+  header("location: ../customer/login.php");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +55,21 @@ if (!isset($_SESSION['user_login'])) {
   <!--== Main Style CSS ==-->
   <link href="assets/css/style.css" rel="stylesheet" />
 </head>
+<style>
+  /* input[type="file"] {
+    display: none;
+  } */
+  .custom {
+    border: 1px solid #ccc;
+    color: #fff;
+    display: inline-block;
+    padding: 12px 12px;
+    margin-right: 10rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: green;
+  }
+</style>
 
 <body>
 
@@ -132,154 +146,201 @@ if (!isset($_SESSION['user_login'])) {
       <!--== End Page Header Area Wrapper ==-->
       <!-- check user login -->
       <?php
-      if (isset($_SESSION['company_login']))
-        $company_id = $_SESSION['company_login'];
-      // echo 'User ID' . $company_id;
-      $stmt = $conn->query("SELECT * FROM company WHERE ID = $company_id ");
-      $company = $company_data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if (isset($_GET['id'])) {
+        $ID = $_GET['id'];
+        // echo 'User ID' . $ID;
+        $stmt = $conn->query("SELECT * FROM company WHERE ID = $ID ");
+        $stmt->execute();
+        $company = $stmt->fetch(PDO::FETCH_ASSOC);
+      }
       ?>
+
       <!--== Start Team Details Area Wrapper ==-->
       <section class="team-details-area">
-        <div class="container">
-          <div class="row">
-            <div class="col-12">
-              <div class="team-details-wrap">
-                <div class="team-details-info">
-                  <div class="thumb">
-                    <img src="assets/img/user/Profile-kancafe.jpg" width="130" height="130" alt="Image-HasTech">
+        <form id="contact-form" enctype="multipart/form-data" action="./company_insert_data.php" method="POST">
+          <input type="hidden" name="ID" value="<?= $company['ID'] ?>">
+          <!-- create name image -->
+          <input type="hidden" value="<?= $company['Profile_picture']; ?>" require class="form-control" name="Profile_picture1">
+          <input type="hidden" value="<?= $company['Business_image']; ?>" require class="form-control" name="Business_image1">
+          <input type="hidden" value="<?= $company['All_image']; ?>" require class="form-control" name="All_image1">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="team-details-wrap">
+                  <div class="team-details-info">
+                    <div class="thumb">
+                      <img src="../folder-image-company/profile-company/<?= $company['Profile_picture'] ?>" width="130" height="130" alt="Image-HasTech">
+                    </div>
+                    <div class="content">
+                      <h4 class="title"><?= $company['Name_company'] ? $company['Name_company'] : "ຍັງບໍ່ມີຂໍ້ມູນ" ?></h4>
+                      <h5 class="sub-title"><?= $company['Business_model'] ?></h5>
+                      <ul class="info-list">
+                        <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
+                      </ul>
+                    </div>
                   </div>
-                  <div class="content">
-                    <h4 class="title"><?= $company['Name_company'] ? $company['Name_company'] : "ຍັງບໍ່ມີຂໍ້ມູນ" ?></h4>
-                    <h5 class="sub-title">ຮ້ານອາຫານ ແລະ ເຄື່ອງດື່ມ</h5>
-                    <ul class="info-list">
-                      <li><i class="icofont-location-pin"></i> Vientiane, Laos</li>
-                    </ul>
+                  <div class="team-details-btn">
+
+                    <!-- <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br> -->
+                    <!-- <button type="button" class="btn-theme">ປ່ຽນຮູບ</button> -->
+                    <label class="fw-bold m-lg-3" for="custom">
+                      ເລືອກຮູບພາບປ່ຽນ
+                    </label>
+                    <input type="file" id="custom" name="Profile_picture" accept="image/*">
                   </div>
-                </div>
-                <div class="team-details-btn">
-                  <input type="file" id="img" name="profile_picture" accept="image/*"> <br> <br>
-                  <button type="button" class="btn-theme">ປ່ຽນຮູບ</button>
                 </div>
               </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col-lg-7 col-xl-8">
-              <div class="team-details-item">
-                <div class="widget-item widget-contact">
-                  <div class="widget-title">
-                    <h3 class="title">ເພີ່ມຂໍ້ມູນເພື່ອຢືນຢັນບໍລິສັດ</h3>
-                  </div>
-                  <div class="widget-contact-form">
-                    <form id="contact-form" action="" method="POST">
+            <div class="row">
+              <div class="col-lg-7 col-xl-8">
+                <div class="team-details-item">
+                  <div class="widget-item widget-contact">
+                    <div class="widget-title">
+                      <h3 class="title">ເພີ່ມຂໍ້ມູນເພື່ອຢືນຢັນບໍລິສັດ</h3>
+                    </div>
+                    <div class="widget-contact-form">
+
                       <div class="row">
                         <div class="col-md-12">
                           <div class="form-group">
+                            <label class="model">ຊື່ບໍລິສັດ</label>
+                            <input class="form-control" type="text" name="Name_company" placeholder="ຊື່ບໍລິສັດ:" value="<?= $company['Name_company'] ?>">
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="model">ອິເມວ</label>
+                            <input class="form-control" type="email" name="Email" placeholder="ອິເມວ:" value="<?= $company['Email'] ?>">
+                          </div>
+                        </div>
+                        <!-- <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="model">ລະຫັດຜ່ານ</label>
+                            <input class="form-control" type="hidden" name="Password" value="<?= $company['Password'] ?>">
+                            <input class="form-control" type="password" name="Password" placeholder="ລະຫັດຜ່ານ:">
+                          </div>
+                        </div> -->
+                        <!-- <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="model">ລະຫັດຜ່ານ</label>
+                            <input class="form-control" type="password" name="Password" placeholder="ລະຫັດຜ່ານໃໝ່:">
+                          </div>
+                        </div> -->
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="model">ຮູບແບບທຸລະກິດ</label>
+                            <input class="form-control" type="text" name="Business_model" placeholder="ຮູບແບບທຸລະກິດ:" value="<?= $company['Business_model'] ?>">
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="form-group">
                             <label class="province">ແຂວງ</label>
-                            <select class="form-select" aria-label="Default select example" name="Province" id="provinceSelect">
-                              <option value="" selected>-----</option>
-                              <?php
-                              $stmt = $conn->query("SELECT pr_id, pr_name FROM province");
-                              $stmt->execute();
-                              $provincestmt = $stmt->fetchAll();
-                              foreach ($provincestmt as $province) {
-                              ?>
-                                <option value="<?= $province['pr_id']; ?>"> <?= $province['pr_name']; ?></option>
-                              <?php   }
-                              ?>
-                            </select>
+                            <input type="text" class="form-control" name="Province" placeholder="ແຂວງ:" value="<?= $company['Province'] ?>">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="district">ເມືອງ</label>
-                            <select class="form-select" aria-label="Default select example" name="District" id="districtSelect">
-                              <option value="" selected>-----</option>
-                            </select>
+                            <input type="text" class="form-control" name="District" placeholder="ເມືອງ:" value="<?= $company['District'] ?>">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group">
                             <label class="village">ບ້ານ</label>
-                            <select class="form-select" aria-label="Default select example" name="Village" id="villageSelect">
-                              <option value="" selected>-----</option>
-                            </select>
+                            <input type="text" class="form-control" name="Village" placeholder="ບ້ານ:" value="<?= $company['Village'] ?>">
                           </div>
                         </div>
-                        <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="form-label">ສັນຊາດ</label>
+                          <input class="form-control" type="text" name="Nationality" placeholder="ສັນຊາດ:" value="<?= $company['Nationality'] ?>">
+                        </div>
+                        <!-- <div class="col-md-12">
                           <div class="form-group">
                             <input class="form-control" type="text" name="address" placeholder="ທີ່ຢູ່ອື່ນໆ:">
                           </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                           <div class="form-group">
-                            <input class="form-control" type="text" name="tel" placeholder="ເບີຕິດຕໍ່:">
+                            <label class="Tel">ເບິຕິດຕໍ່</label>
+                            <input class="form-control" type="number" name="Tel" placeholder="ເບີຕິດຕໍ່:" value="<?= $company['Tel'] ?>">
                           </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                           <div class="form-group">
                             <label for="img">ໃບທະບຽນວິສະຫະກິດ:</label>
-                            <input type="file" id="img" name="business_image" accept="image/*">
+                            <input type="file" id="image_company" name="Business_image">
+                            <img width="100%" src="../folder-image-company/business-company/<?= $company['Business_image'] ?>" id="perview" class="mt-2 rounded" alt="">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label for="img">ຮູບພາບລວມບໍລິສັດ:</label>
+                            <input type="file" id="image_company_All" name="All_image">
+                            <img width="100%" src="../folder-image-company/all-image/<?= $company['All_image'] ?>" id="perview_All" class="mt-2 rounded" alt="">
                           </div>
                         </div>
                         <div class="col-md-12">
                           <div class="form-group mb--0">
-                            <button onclick="window.location.href = 'company-details.html';" class="btn-theme d-block w-100" type="submit">ບັນທຶກ</button>
+                            <!-- <button onclick="window.location.href = 'company-destails.html';" class="btn-theme d-block w-100" type="submit">ບັນທຶກ</button> -->
+                            <button type="button1" name="Submit" class="btn-theme d-block w-100">ບັນທຶກ</button>
+
                           </div>
                         </div>
                       </div>
-                    </form>
 
-                    <!--== Message Notification ==-->
-                    <div class="form-message"></div>
+                      <!--== Message Notification ==-->
+                      <div class="form-message"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-5 col-xl-4">
-              <div class="team-sidebar">
-                <div class="widget-item">
-                  <div class="widget-title">
-                    <h3 class="title">ຂໍ້ມູນທົ່ວໄປ</h3>
+              <div class="col-lg-5 col-xl-4">
+                <div class="team-sidebar">
+                  <div class="widget-item">
+                    <div class="widget-title">
+                      <h3 class="title">ຂໍ້ມູນທົ່ວໄປ</h3>
+                    </div>
+                    <div class="summery-info">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <td class="table-name">ອີເມວ</td>
+                            <td class="dotted">:</td>
+                            <td><?= $company['Name_company'] ? $company['Name_company'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ເບີຕິດຕໍ່</td>
+                            <td class="dotted">:</td>
+                            <td><?= $company['Tel'] ? $company['Tel'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          </tr>
+                          <tr>
+                            <td class="table-name">ທີ່ຢູ່</td>
+                            <td class="dotted">:</td>
+                            <td><?= $company['Province'] ? $company['Province'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
-                  <div class="summery-info">
-                    <table class="table">
-                      <tbody>
-                        <tr>
-                          <td class="table-name">ອີເມວ</td>
-                          <td class="dotted">:</td>
-                          <td><?= $company['Name_company'] ? $company['Name_company'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ເບີຕິດຕໍ່</td>
-                          <td class="dotted">:</td>
-                          <td><?= $company['Tel'] ? $company['Tel'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
-                        </tr>
-                        <tr>
-                          <td class="table-name">ທີ່ຢູ່</td>
-                          <td class="dotted">:</td>
-                          <td><?= $company['Province'] ? $company['Province'] : 'ຍັງບໍ່ມີຂໍ້ມູນ' ?></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-                <div class="widget-item">
-                  <div class="widget-title">
-                    <h3 class="title">Share</h3>
-                  </div>
-                  <div class="social-icons">
-                    <a href="https://www.facebook.com" target="_blank" rel="noopener"><i class="icofont-facebook"></i></a>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"><i class="icofont-twitter"></i></a>
-                    <a href="https://www.skype.com" target="_blank" rel="noopener"><i class="icofont-skype"></i></a>
-                    <a href="https://www.pinterest.com" target="_blank" rel="noopener"><i class="icofont-pinterest"></i></a>
-                    <a href="https://dribbble.com/" target="_blank" rel="noopener"><i class="icofont-dribbble"></i></a>
+                  <div class="widget-item">
+                    <div class="widget-title">
+                      <h3 class="title">Share</h3>
+                    </div>
+                    <div class="social-icons">
+                      <a href="https://www.facebook.com" target="_blank" rel="noopener"><i class="icofont-facebook"></i></a>
+                      <a href="https://twitter.com" target="_blank" rel="noopener"><i class="icofont-twitter"></i></a>
+                      <a href="https://www.skype.com" target="_blank" rel="noopener"><i class="icofont-skype"></i></a>
+                      <a href="https://www.pinterest.com" target="_blank" rel="noopener"><i class="icofont-pinterest"></i></a>
+                      <a href="https://dribbble.com/" target="_blank" rel="noopener"><i class="icofont-dribbble"></i></a>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
+        </form>
+
       </section>
       <!--== End Team Details Area Wrapper ==-->
     </main>
@@ -374,8 +435,31 @@ if (!isset($_SESSION['user_login'])) {
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
   <!-- JavaScript Bundle with Popper -->
-  <script src="./setValue_select.js"></script>
+  <!-- <script src="./setValue_select.js"></script> -->
 
+
+  <script>
+    let Image = document.getElementById('image_company');
+    let preview = document.getElementById('perview');
+
+    Image.onchange = evt => {
+      const [file] = Image.files;
+      if (file) {
+        preview.src = URL.createObjectURL(file);
+      }
+    }
+
+    //All image
+    let ImageAll = document.getElementById('image_company_All');
+    let previewAll = document.getElementById('perview_All');
+
+    ImageAll.onchange = evt => {
+      const [file] = ImageAll.files;
+      if (file) {
+        previewAll.src = URL.createObjectURL(file);
+      }
+    }
+  </script>
 
 
 
