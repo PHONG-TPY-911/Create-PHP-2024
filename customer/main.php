@@ -22,40 +22,49 @@
                 <div class="col-12">
                   <div class="job-search-wrap">
                     <div class="job-search-form">
-                      <form action="#">
+                      <form action="job.php" method="post" enctype="multipart/form-data">
                         <div class="row row-gutter-10">
                           <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
                             <div class="form-group">
-                              <input type="text" class="form-control" placeholder="ໜ້າວຽກ, ຕຳແໜ່ງ">
+                              <input type="text" class="form-control" name="job_title" placeholder="ໜ້າວຽກ, ຕຳແໜ່ງ">
                             </div>
                           </div>
                           <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
                             <div class="form-group">
-                              <select class="form-control">
-                                <option value="1" selected>ເມືອງ</option>
-                                <option value="2">New York</option>
-                                <option value="3">California</option>
-                                <option value="4">Illinois</option>
-                                <option value="5">Texas</option>
-                                <option value="6">Florida</option>
+                              <select class="form-control" name="locations">
+                                <option value="1" selected>ສະຖານທີ</option>
+                                <?php
+                                $sql = "SELECT * FROM company WHERE InfoFull = 'passed'";
+                                $stmt = $conn->query($sql);
+                                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($results as $companys) {
+                                ?>
+                                  <option value="<?= $companys['Province'] ?>"> 👉 <?= $companys['Province'] ?></option>
+                                <?php }
+                                ?>
                               </select>
                             </div>
                           </div>
                           <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
                             <div class="form-group">
-                              <select class="form-control">
-                                <option value="1" selected>ໝວດວຽກ</option>
-                                <option value="2">Web Designer</option>
-                                <option value="3">Web Developer</option>
-                                <option value="4">Graphic Designer</option>
-                                <option value="5">App Developer</option>
-                                <option value="6">UI &amp; UX Expert</option>
+                              <select class="form-control" name="type">
+                                <option value="1" selected>ປະເພດ ວຽກ</option>
+                                <?php
+                                $sql = "SELECT * FROM post_work_company WHERE InfoFull = 'passed'";
+                                $stmt = $conn->query($sql);
+                                $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                                foreach ($results as $companys) {
+                                ?>
+                                  <option value="<?= $companys['Occupation'] ?>"> 👉 <?= $companys['Occupation'] ?></option>
+                                <?php }
+                                ?>
                               </select>
                             </div>
                           </div>
                           <div class="col-lg-auto col-sm-6 col-12 flex-grow-1">
                             <div class="form-group">
-                              <button type="button" class="btn-form-search"><i class="icofont-search-1"></i></button>
+                              <a href="job.php"><button type="button" class="btn-form-search"><i class="icofont-search-1"></i></button>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -126,6 +135,12 @@
 
               // Display the data within the HTML structure if Data_company is not null
               if ($Data_company) {
+                // check text show 50
+                $description = $result['Describe_work'];
+                $max_length = 30;
+                if (mb_strlen($description) > $max_length) {
+                  $description = mb_substr($description, 0, $max_length) . '...';
+                }
           ?>
                 <div class="col-md-4 col-lg-5">
                   <!--== Start Recent Job Item ==-->
@@ -144,7 +159,7 @@
                     <div class="main-content">
                       <h3 class="title"><a href="job-details.php?id= <?= $result['ID'] ?>"><?= htmlspecialchars($result['Job_title']); ?></a></h3>
                       <h5 class="work-type"><?= htmlspecialchars($result['Working_time']); ?></h5>
-                      <p class="desc"><?= htmlspecialchars($result['Describe_work']); ?></p>
+                      <p class="desc"><?= $description; ?></p>
                     </div>
                     <div class="recent-job-info">
                       <div class="salary">
@@ -203,114 +218,6 @@
 
 
         </div>
-    </section>
-    <section>
-      <div class="row">
-        <div class="row mt-4">
-          <div class="col-12">
-            <div class="section-title text-center">
-              <h3 class="title">ວຽກທີ່ກຳລັບຕ້ອງການ</h3>
-              <div class="desc">
-                <p>ສະໝັກເລີຍ</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
-          <div class="carousel-inner">
-            <?php
-            // session_start();
-            include_once '../connect-database/config.php';
-            // Make sure to establish a connection to the database
-            // Example: $conn = new PDO('mysql:host=hostname;dbname=database_name', 'username', 'password');
-
-            // Fetch all records from post_work_company where InfoFull is 'full'
-            $sql = "SELECT * FROM post_work_company WHERE InfoFull = 'full'";
-            $stmt = $conn->query($sql);
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-            // Check if results are not empty
-            if (!empty($results)) {
-              $firstItem = true; // Variable to check if it's the first carousel item
-              // Iterate through each result to perform further operations
-              foreach ($results as $result) {
-                $company_id = $result['ID_company'];
-
-                // Prepare the query to fetch matching company IDs
-                $stmt = $conn->prepare("
-                SELECT company.ID AS company_id
-                FROM company
-                WHERE company.ID = :company_id
-            ");
-                $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
-                $stmt->execute();
-                $ID_task = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($ID_task) {
-                  // Fetch company details
-                  $stmt = $conn->prepare("SELECT * FROM company WHERE ID = :company_id");
-                  $stmt->bindParam(':company_id', $ID_task['company_id'], PDO::PARAM_INT);
-                  $stmt->execute();
-                  $Data_company = $stmt->fetch(PDO::FETCH_ASSOC);
-                } else {
-                  $Data_company = null;
-                }
-
-                // Display the data within the HTML structure if Data_company is not null
-                if ($Data_company) {
-                  // Add the 'active' class only to the first item
-                  $activeClass = $firstItem ? 'active' : '';
-                  $firstItem = false;
-            ?>
-                  <div class="carousel-item <?= $activeClass ?>">
-                    <div class="col-md-4 col-lg-5">
-                      <!--== Start Recent Job Item ==-->
-                      <div class="recent-job-item">
-                        <div class="company-info">
-                          <div class="logo">
-                            <a href="company-details.html">
-                              <img src="../folder-image-company/profile-company/<?= htmlspecialchars($Data_company['Profile_picture']); ?>" width="75" height="75" alt="Image-HasTech">
-                            </a>
-                          </div>
-                          <div class="content">
-                            <h4 class="name"><a href="company-details.html"><?= htmlspecialchars($Data_company['Name_company']); ?></a></h4>
-                            <p class="address"><?= htmlspecialchars($Data_company['Province']); ?> , <?= htmlspecialchars($Data_company['Nationality']); ?></p>
-                          </div>
-                        </div>
-                        <div class="main-content">
-                          <h3 class="title"><a href="job-details.html"><?= htmlspecialchars($result['Job_title']); ?></a></h3>
-                          <h5 class="work-type"><?= htmlspecialchars($result['Working_time']); ?></h5>
-                          <p class="desc"><?= htmlspecialchars($result['Describe_work']); ?></p>
-                        </div>
-                        <div class="recent-job-info">
-                          <div class="salary">
-                            <h4><?= number_format(htmlspecialchars($result['Salary'])); ?> LAK </h4>
-                            <p>/ເດືອນ</p>
-                          </div>
-                          <a class="btn-theme btn-sm" href="job-details.html">ສະໝັກ</a>
-                        </div>
-                      </div>
-                      <!--== End Recent Job Item ==-->
-                    </div>
-                  </div>
-            <?php
-                }
-              }
-            } else {
-              echo "<div class='carousel-item active'>No records found.</div>";
-            }
-            ?>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
-        </div>
-
       </div>
     </section>
     <!--== End Recent Job Area Wrapper ==-->
@@ -454,110 +361,81 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!--== Start Team Item ==-->
-            <div class="team-item">
-              <div class="thumb">
-                <a href="candidate-details.html">
-                  <img src="assets/img/companies/BCEL Bank.jpg" width="160" height="160" alt="Image-HasTech">
-                </a>
-              </div>
-              <div class="content">
-                <h4 class="title"><a href="candidate-details.html">BCEL Bank</a></h4>
-                <h5 class="sub-title">Back-end Developer</h5>
-                <div class="rating-box">
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                </div>
+          <?php
+          $sql = "SELECT * FROM post_work_company WHERE InfoFull = 'passed'";
+          $stmt = $conn->query($sql);
+          $results_company = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                <a class="btn-theme btn-white btn-sm" href="candidate-details.html">ເບິ່ງໂປໄຟຣ</a>
-              </div>
-              <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
-              <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"></div>
-            </div>
-            <!--== End Team Item ==-->
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!--== Start Team Item ==-->
-            <div class="team-item">
-              <div class="thumb">
-                <a href="candidate-details.html">
-                  <img src="assets/img/companies/BeerLao.jpg" width="160" height="160" alt="Image-HasTech">
-                </a>
-              </div>
-              <div class="content">
-                <h4 class="title"><a href="candidate-details.html">Beer Lao </a></h4>
-                <h5 class="sub-title">Graphice Designer</h5>
-                <div class="rating-box">
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                </div>
+          // Check if results are not empty
+          if (!empty($results_company)) {
+            // Iterate through each result to perform further operations
+            foreach ($results_company as $results) {
+              $company_id = $results['ID_company'];
+              // Prepare the query to fetch matching company IDs
+              $stmt = $conn->prepare("
+                    SELECT company.ID AS company_id
+                    FROM company
+                    WHERE company.ID = :company_id
+                ");
+              $stmt->bindParam(':company_id', $company_id, PDO::PARAM_INT);
+              $stmt->execute();
+              $ID_task = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                <a class="btn-theme btn-white btn-sm" href="candidate-details.html">ເບິ່ງໂປໄຟຣ</a>
-              </div>
-              <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
-              <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"></div>
-            </div>
-            <!--== End Team Item ==-->
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!--== Start Team Item ==-->
-            <div class="team-item">
-              <div class="thumb">
-                <a href="candidate-details.html">
-                  <img src="assets/img/companies/APB Bank.jpg" width="160" height="160" alt="Image-HasTech">
-                </a>
-              </div>
-              <div class="content">
-                <h4 class="title"><a href="candidate-details.html">APB Bank</a></h4>
-                <h5 class="sub-title">Web Designer</h5>
-                <div class="rating-box">
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                </div>
+              if ($ID_task) {
+                // Fetch company details
+                $stmt = $conn->prepare("SELECT * FROM company WHERE ID = :company_id");
+                $stmt->bindParam(':company_id', $ID_task['company_id'], PDO::PARAM_INT);
+                $stmt->execute();
+                $Data_companys = $stmt->fetch(PDO::FETCH_ASSOC);
+              } else {
+                $Data_companys = null;
+              }
+              // Display the data within the HTML structure if Data_company is not null
+              if ($Data_companys) {
+          ?>
+                <div class="col-sm-6 col-lg-4 col-xl-3">
+                  <div class="team-item">
+                    <!--== Start Team Item ==-->
+                    <div class="thumb">
+                      <a href="candidate-details.html">
+                        <img src="../folder-image-company/profile-company/<?= htmlspecialchars($Data_companys['Profile_picture']); ?>" width="160" height="160" alt="Image-HasTech">
+                      </a>
+                    </div>
+                    <div class="content">
+                      <h4 class="title"><a href="candidate-details.html"><?= htmlspecialchars($Data_companys['Name_company']); ?></a></h4>
+                      <h5 class="sub-title"><?= htmlspecialchars($results['Job_title']); ?></h5>
+                      <div class="rating-box">
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                        <i class="icofont-star"></i>
+                      </div>
 
-                <a class="btn-theme btn-white btn-sm" href="candidate-details.html">ເບິ່ງໂປໄຟຣ</a>
-              </div>
-              <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
-              <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"></div>
-            </div>
-            <!--== End Team Item ==-->
-          </div>
-          <div class="col-sm-6 col-lg-4 col-xl-3">
-            <!--== Start Team Item ==-->
-            <div class="team-item">
-              <div class="thumb">
-                <a href="candidate-details.html">
-                  <img src="assets/img/companies/CLSK.jpg" width="160" height="160" alt="Image-HasTech">
-                </a>
-              </div>
-              <div class="content">
-                <h4 class="title"><a href="candidate-details.html">ຈະເລີນເຊກອງ</a></h4>
-                <h5 class="sub-title">App. Developer</h5>
-                <div class="rating-box">
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
-                  <i class="icofont-star"></i>
+                      <a class="btn-theme btn-white btn-sm" href="candidate-details.html">ເບິ່ງໂປໄຟຣ</a>
+                    </div>
+                    <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
+                    <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"></div>
+                  </div>
+                  <!--== End Team Item ==-->
                 </div>
-
-                <a class="btn-theme btn-white btn-sm" href="candidate-details.html">ເບິ່ງໂປໄຟຣ</a>
-              </div>
-              <div class="bookmark-icon"><img src="assets/img/icons/bookmark1.png" alt="Image-HasTech"></div>
-              <div class="bookmark-icon-hover"><img src="assets/img/icons/bookmark2.png" alt="Image-HasTech"></div>
-            </div>
-            <!--== End Team Item ==-->
-          </div>
+          <?php
+              }
+            }
+          } else {
+            echo "<script>
+          $(document).ready(function() {
+            Swal.fire({
+              title: 'ຂໍ້ມູນ',
+              text: 'ຍັງບໍມິຂໍ້ມູນການປະການຮັບສະໝັກວຽກເທື່ອ',
+              icon: 'error',
+              timer: 5000,
+              showConfirmButton: false
+              });
+              });
+              </script>";
+          }
+          ?>
         </div>
       </div>
     </section>

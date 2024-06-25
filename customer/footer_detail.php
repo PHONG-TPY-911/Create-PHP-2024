@@ -1,9 +1,87 @@
+<!--== Start Testimonial Area Wrapper ==-->
+<section class="testimonial-area bg-color-gray">
+  <div class="container" data-aos="fade-down">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title text-center">
+          <h3 class="title">ກຳລັງຊອກຫາວຽກ</h3>
+          <div class="desc">
+            <p>ພະນັກງານທີ່ທ່ານອາກກຳລັງຊອກຫາ ເປັນສ່ວນຮ່ວມກັບທິມ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="swiper testi-slider-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <!--== Start Testimonial Item ==-->
+              <?php
+              $stmt = $conn->query("SELECT customer.ID, customer.ID_task_information, customer.Profile_picture, customer.Name, taskinformation.ID, taskinformation.ID_Task, taskinformation.Job_content, taskinformation.Occupation FROM customer,taskinformation WHERE taskinformation.ID_Task = customer.ID_task_information AND customer.InfoFull = 'passed'");
+              $stmt->execute();
+              $customer = $stmt->fetchAll();
+
+              if (!$customer) {
+                echo "<pclass='text-center'>ຍັງບໍ່ມີ ບັນຊີຜູ້ໃຊ້ງານ ທີ່ໄດ້ຖືກຍອມຮັບແລ້ວ</p>";
+              } else {
+                foreach ($customer as $customers) {
+              ?>
+                  <div class="testimonial-item">
+                    <div class="testi-inner-content">
+                      <div class="testi-author">
+                        <div class="testi-thumb">
+                          <img src="../folder-image/image-profile/<?= $customers['Profile_picture'] ?>" width="75" height="75" alt="Image-HasTech">
+                        </div>
+                        <div class="testi-info">
+                          <h4 class="name"><?= $customers['Name'] ?></h4>
+                          <span class="designation"><?= $customers['Occupation'] ?></span>
+                        </div>
+                      </div>
+                      <div class="testi-content">
+                        <p class="desc"><?= $customers['Job_content'] ?></p>
+                      </div>
+                    </div>
+                <?php }
+              } ?>
+                <button class="btn-theme btn-sm btn btn-prinary">ເບີ່ງປະຫວັດ</button>
+                <!--== End Testimonial Item ==-->
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!--== End Testimonial Area Wrapper ==-->
+
 
 </main>
 
 <!--== Start Footer Area Wrapper ==-->
 <footer class="footer-area">
- 
+  <!--== Start Footer Top ==-->
+  <div class="footer-top">
+    <div class="container pt--0 pb--0">
+      <div class="row">
+        <div class="col-lg-5">
+          <div class="footer-newsletter-content">
+            <h4 class="title">Subscribe for everyday job newsletter.</h4>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="footer-newsletter-form">
+            <form action="#">
+              <input type="email" placeholder="Enter your email">
+              <button type="submit" class="btn-newsletter">Subscribe Now</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--== End Footer Top ==-->
 
   <!--== Start Footer Main ==-->
   <div class="footer-main">

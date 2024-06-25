@@ -57,6 +57,7 @@ if (!isset($_SESSION['user_login'])) {
   h5,
   h6 {
     font-family: 'Times New Roman', 'Saysettha OT', sans-serif;
+    font-weight: bold;
   }
 </style>
 
@@ -113,7 +114,7 @@ if (!isset($_SESSION['user_login'])) {
                         <li>
                           <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="login.html">ອອກລະບົບ</a></li>
+                        <li><a class="dropdown-item" href="../Logout/logout.php">ອອກລະບົບ</a></li>
                       </ul>
                     </div>
                     <!-- <div class="header-align-end">
